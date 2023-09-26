@@ -1,0 +1,111 @@
+Задание 1 - Docker CLI
+
+1. Загрузите образ busybox последней версии
+PS C:\Users\avbul> docker pull busybox
+Using default tag: latest
+latest: Pulling from library/busybox
+3f4d90098f5b: Pull complete
+Digest: sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+Status: Downloaded newer image for busybox:latest
+docker.io/library/busybox:latest
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview busybox
+PS C:\Users\avbul>
+
+2. Запустите новый контейнер busybox с командой ping сайта netology.ru, и количеством пингов 7, поименуйте контейнер pinger
+PS C:\Users\avbul> docker run --name pinger busybox ping -c 7 netology.ru
+PING netology.ru (188.114.98.234): 56 data bytes
+64 bytes from 188.114.98.234: seq=0 ttl=62 time=8.120 ms
+64 bytes from 188.114.98.234: seq=1 ttl=62 time=6.767 ms
+64 bytes from 188.114.98.234: seq=2 ttl=62 time=7.432 ms
+64 bytes from 188.114.98.234: seq=3 ttl=62 time=7.726 ms
+64 bytes from 188.114.98.234: seq=4 ttl=62 time=8.153 ms
+64 bytes from 188.114.98.234: seq=5 ttl=62 time=4.957 ms
+64 bytes from 188.114.98.234: seq=6 ttl=62 time=4.730 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 4.730/6.840/8.153 ms
+PS C:\Users\avbul>
+
+3.Выведите на список всех контейнеров - запущенных и остановленных
+PS C:\Users\avbul> docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS                          PORTS     NAMES
+82744b6dd5d1   busybox   "ping -c 7 netology.…"   About a minute ago   Exited (0) About a minute ago             pinger
+PS C:\Users\avbul>
+
+4. Выведите на экран логи контейнера с именем pinger
+PS C:\Users\avbul> docker logs pinger
+PING netology.ru (188.114.98.234): 56 data bytes
+64 bytes from 188.114.98.234: seq=0 ttl=62 time=8.120 ms
+64 bytes from 188.114.98.234: seq=1 ttl=62 time=6.767 ms
+64 bytes from 188.114.98.234: seq=2 ttl=62 time=7.432 ms
+64 bytes from 188.114.98.234: seq=3 ttl=62 time=7.726 ms
+64 bytes from 188.114.98.234: seq=4 ttl=62 time=8.153 ms
+64 bytes from 188.114.98.234: seq=5 ttl=62 time=4.957 ms
+64 bytes from 188.114.98.234: seq=6 ttl=62 time=4.730 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 4.730/6.840/8.153 ms
+PS C:\Users\avbul>
+
+5. Запустите второй раз контейнера с именем pinger
+PS C:\Users\avbul> docker start pinger
+pinger
+PS C:\Users\avbul>
+
+6. Выведите на список всех контейнеров - запущенных и остановленных
+PS C:\Users\avbul> docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS                     PORTS     NAMES
+82744b6dd5d1   busybox   "ping -c 7 netology.…"   9 minutes ago   Exited (0) 3 minutes ago             pinger
+PS C:\Users\avbul> 
+
+7. Выведите на экран логи контейнера с именем pinger
+
+PS C:\Users\avbul> docker logs -t pinger
+2023-09-26T10:58:28.479940400Z PING netology.ru (188.114.98.234): 56 data bytes
+2023-09-26T10:58:28.480017600Z 64 bytes from 188.114.98.234: seq=0 ttl=62 time=8.120 ms
+2023-09-26T10:58:29.478838100Z 64 bytes from 188.114.98.234: seq=1 ttl=62 time=6.767 ms
+2023-09-26T10:58:30.480729300Z 64 bytes from 188.114.98.234: seq=2 ttl=62 time=7.432 ms
+2023-09-26T10:58:31.481000600Z 64 bytes from 188.114.98.234: seq=3 ttl=62 time=7.726 ms
+2023-09-26T10:58:32.481981900Z 64 bytes from 188.114.98.234: seq=4 ttl=62 time=8.153 ms
+2023-09-26T10:58:33.478999100Z 64 bytes from 188.114.98.234: seq=5 ttl=62 time=4.957 ms
+2023-09-26T10:58:34.478950600Z 64 bytes from 188.114.98.234: seq=6 ttl=62 time=4.730 ms
+2023-09-26T10:58:34.480904100Z
+2023-09-26T10:58:34.480927000Z --- netology.ru ping statistics ---
+2023-09-26T10:58:34.480930100Z 7 packets transmitted, 7 packets received, 0% packet loss
+2023-09-26T10:58:34.480932400Z round-trip min/avg/max = 4.730/6.840/8.153 ms
+2023-09-26T11:03:09.477677900Z PING netology.ru (188.114.98.234): 56 data bytes
+2023-09-26T11:03:09.477738800Z 64 bytes from 188.114.98.234: seq=0 ttl=62 time=5.643 ms
+2023-09-26T11:03:10.477232800Z 64 bytes from 188.114.98.234: seq=1 ttl=62 time=4.878 ms
+2023-09-26T11:03:11.480455300Z 64 bytes from 188.114.98.234: seq=2 ttl=62 time=7.837 ms
+2023-09-26T11:03:12.480732900Z 64 bytes from 188.114.98.234: seq=3 ttl=62 time=7.535 ms
+2023-09-26T11:03:13.480965700Z 64 bytes from 188.114.98.234: seq=4 ttl=62 time=7.340 ms
+2023-09-26T11:03:14.479107300Z 64 bytes from 188.114.98.234: seq=5 ttl=62 time=5.262 ms
+2023-09-26T11:03:15.480108900Z 64 bytes from 188.114.98.234: seq=6 ttl=62 time=5.815 ms
+2023-09-26T11:03:15.484255100Z
+2023-09-26T11:03:15.484303200Z --- netology.ru ping statistics ---
+2023-09-26T11:03:15.484309500Z 7 packets transmitted, 7 packets received, 0% packet loss
+2023-09-26T11:03:15.484323400Z round-trip min/avg/max = 4.878/6.330/7.837 ms
+PS C:\Users\avbul> 
+
+8. Определите по логам общее количество запусков команды ping и какое общее количество отправленых запросов
+общее количество запусков команды ping = 2
+общее количество отправленых запросов = 14
+
+9. Удалите контейнер с именем pinger
+PS C:\Users\avbul> docker rm pinger
+pinger
+PS C:\Users\avbul> docker ps -a    
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+PS C:\Users\avbul>
+
+10. Удалите образ busybox
+PS C:\Users\avbul> docker rmi busybox
+Untagged: busybox:latest
+Untagged: busybox@sha256:3fbc632167424a6d997e74f52b878d7cc478225cffac6bc977eedfe51c7f4e79
+Deleted: sha256:a416a98b71e224a31ee99cff8e16063554498227d2b696152a9c3e0aa65e5824
+Deleted: sha256:3d24ee258efc3bfe4066a1a9fb83febf6dc0b1548dfe896161533668281c9f4f
+PS C:\Users\avbul>

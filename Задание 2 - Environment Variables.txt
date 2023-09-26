@@ -1,0 +1,63 @@
+Задание 2 - Environment Variables
+
+1.Загрузите образ node версии 
+PS C:\Users\avbul> docker pull node:18.1
+18.1: Pulling from library/node
+67e8aa6c8bbc: Pull complete
+627e6c1e1055: Pull complete
+0670968926f6: Pull complete
+5a8b0e20be4b: Pull complete
+b0b10a3a2784: Pull complete
+fb13efbeef09: Pull complete
+d6401d9d60da: Pull complete
+dfeaaface082: Pull complete
+51edfe32f0b3: Pull complete
+Digest: sha256:82f9e078898dce32c7bf3232049715f1b8fbf0d62d5f3091bca20fcaede50bf0
+Status: Downloaded newer image for node:18.1
+docker.io/library/node:18.1
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview node:18.1
+PS C:\Users\avbul>
+
+
+
+2. Запустите контейнер node в интерактивном режиме подключения терминала, поименуйте его mynode, передайте две переменные среды NAME=<ваше имя> и SURNAME=<ваша фамилия>
+PS C:\Users\avbul> docker run -e NAME=Alexander -e SURNAME=Bulatov -it node:18.1 
+Welcome to Node.js v18.1.0.
+Type ".help" for more information.
+>
+
+3. В интерактивной среде выполнения node выполните скрипт, который выведет на экран приветсвтие: Привет, <ваше имя> <ваша фамилия>!, эти данные должны быть получены из переменных среды
+> console.log(`Привет, ${process.env.NAME} ${process.env.SURNAME}`)
+Привет, Alexander Bulatov
+undefined
+>
+
+4. Остановите контейнер
+PS C:\Users\avbul> docker ps
+CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS         PORTS     NAMES
+9f1a1a9c9c12   node:18.1   "docker-entrypoint.s…"   6 minutes ago   Up 5 minutes             naughty_volhard
+PS C:\Users\avbul> docker stop 9f
+9f
+PS C:\Users\avbul> docker ps     
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+PS C:\Users\avbul> 
+
+5. Удалите образ node версии 
+PS C:\Users\avbul> docker rm 9f  
+9f
+PS C:\Users\avbul> docker rmi node:18.1
+Untagged: node:18.1
+Untagged: node@sha256:82f9e078898dce32c7bf3232049715f1b8fbf0d62d5f3091bca20fcaede50bf0
+Deleted: sha256:b6c4441a8ff54a943185c37bdca51cc45304d3b22e985dcc3bf7b5e1d680f7ea      
+Deleted: sha256:68a7e1030f4f87933914983c35e89cc6ebba0f5b6a2170132bc0f8f5731cdce7      
+Deleted: sha256:b0460eb80d4de7d37369ccbb4501bb93b3e079f925294dc7eac46df212367cce      
+Deleted: sha256:35eab043c6bf5f9fdb21592c1e5dbf16447b09db8181617a26bc63014de337e3      
+Deleted: sha256:93c511e3ac56e5c6226bdc7bcc6b3c9cf4de7e5279d713ce1c3e2f9e30ddcc0c      
+Deleted: sha256:8541f17fbc11dd1b8b8b52d75000531fc87c5c2361d85931163448dc2a791663      
+Deleted: sha256:959af554d011d668e2b34b26708ba3c32aa49234362ffe8631e0d0867b63488b      
+Deleted: sha256:4de1922dd4b9bfb4c320c68b6d43bd550a6573374fccbe279a9092be4ea300cc      
+Deleted: sha256:8ea959ee76797a3df3f97dad91b94b420cfa8620e36cf0ffcd4eaac5e17ae05d      
+Deleted: sha256:78658088978a7596a65f6e864cd30ae00697c62b2b0b82ebf766239ae9c2ed6d      
+PS C:\Users\avbul>

@@ -1,0 +1,76 @@
+Задание 3 - Volumes
+
+1. Загрузите образ node версии
+PS C:\Users\avbul> docker pull node:18.1
+18.1: Pulling from library/node
+67e8aa6c8bbc: Pull complete
+627e6c1e1055: Pull complete
+0670968926f6: Pull complete 
+5a8b0e20be4b: Pull complete
+b0b10a3a2784: Pull complete
+fb13efbeef09: Pull complete
+d6401d9d60da: Pull complete
+dfeaaface082: Pull complete
+51edfe32f0b3: Pull complete
+Digest: sha256:82f9e078898dce32c7bf3232049715f1b8fbf0d62d5f3091bca20fcaede50bf0
+Status: Downloaded newer image for node:18.1
+docker.io/library/node:18.1
+
+What's Next?
+  View a summary of image vulnerabilities and recommendations → docker scout quickview node:18.1
+PS C:\Users\avbul> 
+
+2. Запустите контейнер с именем first_node из образа node версии в фоновом режиме, подключив папку data из текущей директории в /var/first/data контейнера
+PS C:\Users\avbul\dev\data> docker run --name first_node -d -v C:\Users\avbul\dev\data:/var/first/data  node:18.1 /bin/sleep infinity
+7b1cd213c1407f09910cffe7103989213ff1dcc44a6f4ebdd59e800d117bf543
+PS C:\Users\avbul\dev\data>
+
+3. Запустите контейнер с именем second_node из образа node версии в фоновом режиме, подключив папку data из текущей директории в /var/second/data контейнера
+PS C:\Users\avbul\dev\data> docker run --name second_node -d -v C:\Users\avbul\dev\data:/var/second/data  node:18.1 /bin/sleep infinity
+cbfe03ee2f7c6f08e9c3684f8db8a044c38fc95217919bbed1fe0d2e0a21fff1
+PS C:\Users\avbul\dev\data>
+
+4. Подключитесь к контейнеру first_node с помощью exec и создайте текстовый файл любого содержания в /var/first/data
+PS C:\Users\avbul\dev\data> docker exec -it first_node touch /var/first/data/node_1.txt 
+PS C:\Users\avbul\dev\data>
+/в IDE появился файл node_1.txt/
+
+5. Добавьте еще один файл в папку data на хостовой машине
+/добавил node_1.txt/
+
+6.Подключитесь к контейнеру second_node с помощью exec и получите список файлов в директории /var/second/data, выведете на экран содержимое файлов
+PS C:\Users\avbul\dev\data> docker exec -it second_node ls /var/second/data/   
+node_1.txt  node_2.txt
+PS C:\Users\avbul\dev\data>
+
+7.Остановите оба контейнера
+PS C:\Users\avbul\dev\data> docker stop first_node second_node
+first_node
+second_node
+PS C:\Users\avbul\dev\data> docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+PS C:\Users\avbul\dev\data>
+
+8. Удалите оба контейнера
+PS C:\Users\avbul\dev\data> docker rm first_node second_node  
+first_node
+second_node
+PS C:\Users\avbul\dev\data> docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+PS C:\Users\avbul\dev\data>
+
+9.Удалите образ node версии
+PS C:\Users\avbul\dev\data> docker rmi node:18.1 
+Untagged: node:18.1
+Untagged: node@sha256:82f9e078898dce32c7bf3232049715f1b8fbf0d62d5f3091bca20fcaede50bf0
+Deleted: sha256:b6c4441a8ff54a943185c37bdca51cc45304d3b22e985dcc3bf7b5e1d680f7ea
+Deleted: sha256:68a7e1030f4f87933914983c35e89cc6ebba0f5b6a2170132bc0f8f5731cdce7
+Deleted: sha256:b0460eb80d4de7d37369ccbb4501bb93b3e079f925294dc7eac46df212367cce
+Deleted: sha256:35eab043c6bf5f9fdb21592c1e5dbf16447b09db8181617a26bc63014de337e3
+Deleted: sha256:93c511e3ac56e5c6226bdc7bcc6b3c9cf4de7e5279d713ce1c3e2f9e30ddcc0c
+Deleted: sha256:8541f17fbc11dd1b8b8b52d75000531fc87c5c2361d85931163448dc2a791663
+Deleted: sha256:959af554d011d668e2b34b26708ba3c32aa49234362ffe8631e0d0867b63488b
+Deleted: sha256:4de1922dd4b9bfb4c320c68b6d43bd550a6573374fccbe279a9092be4ea300cc
+Deleted: sha256:8ea959ee76797a3df3f97dad91b94b420cfa8620e36cf0ffcd4eaac5e17ae05d
+Deleted: sha256:78658088978a7596a65f6e864cd30ae00697c62b2b0b82ebf766239ae9c2ed6d
+PS C:\Users\avbul\dev\data>
